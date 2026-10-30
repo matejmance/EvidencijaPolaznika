@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,6 +22,18 @@ public class Main {
 
         for (int i = 0; i < listaPolaznika.size(); i++) {
             System.out.println(listaPolaznika.get(i)+"\n");
+        }
+
+        pretrazivanjePoGodiniUpisa(listaPolaznika,2021);
+
+        System.out.println("Broj polaznika : " + listaPolaznika.size());
+    }
+
+    public static void pretrazivanjePoGodiniUpisa(ArrayList<Polaznik> listaPolaznika , int godinaUpisa){
+        for(int i = 0 ; i < listaPolaznika.size() ; i++){
+            if(godinaUpisa == listaPolaznika.get(i).getGodinaUpisa()){
+            System.out.println(listaPolaznika.get(i)+"\n");
+            }
         }
     }
 }
