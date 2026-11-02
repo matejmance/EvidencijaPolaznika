@@ -1,5 +1,9 @@
 import java.io.*;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,37 +30,20 @@ public class Main {
 //        listaPolaznika.put("4@gmail.com", polaznik5);
 //        listaPolaznika.put("5@gmail.com", polaznik6);
 
-        File datoteka = new File("C:\\Users\\user\\Desktop\\EvidencijaPolaznika\\data\\polaznici.csv");
+        File datoteka = new File("data/polaznici.csv");
+        Path path = datoteka.toPath();
+        System.out.println(path);
 
-        System.out.println(citanjeDatoteke(datoteka));
+        System.out.println(citanjeDatoteke(path));
+        int velicina = citanjeDatoteke(path).size();
+        System.out.println(velicina);
 
 
 
 
-//        try(BufferedReader br = new BufferedReader(new FileReader(datoteka))){
-//            String linija = "";
-//            while ((linija = br.readLine()) != null){
-//                String[] array = linija.split(",");
-//
-//                String ime = array[0];
-//                String prezime = array[1];
-//                String email = array[2];
-//                int godina = 0;
-//                for (int i = 0; i < array.length; i++) {
-//                    if(Character.isDigit(array[i].charAt(0)) && !(array[i].contains("@"))){
-//                        godina = Integer.parseInt(array[i]);
-//                    }
-//                }
-//
-//                Polaznik polaznik = new Polaznik(ime, prezime, email, godina);
-//                listaPolaznika2.add(polaznik);
-//
-//
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        System.out.println(listaPolaznika2);
+
+
+
 
 
 
@@ -88,23 +75,17 @@ public class Main {
 
     }
 
-    public static ArrayList citanjeDatoteke(File datoteka) {
+    public static ArrayList<Polaznik> citanjeDatoteke(Path path) {
         ArrayList<Polaznik> listaPolaznika2;
-        try (BufferedReader br = new BufferedReader(new FileReader(datoteka))) {
+        try (BufferedReader br = Files.newBufferedReader(path)) {
             listaPolaznika2 = new ArrayList<>();
             String linija = "";
             while ((linija = br.readLine()) != null) {
                 String[] array = linija.split(",");
-
                 String ime = array[0];
                 String prezime = array[1];
                 String email = array[2];
-                int godina = 0;
-                for (int i = 0; i < array.length; i++) {
-                    if (Character.isDigit(array[i].charAt(0)) && !(array[i].contains("@"))) {
-                        godina = Integer.parseInt(array[i]);
-                    }
-                }
+                int godina = Integer.parseInt(array[3]);
 
                 Polaznik polaznik = new Polaznik(ime, prezime, email, godina);
                 listaPolaznika2.add(polaznik);
