@@ -31,7 +31,7 @@ public class Main {
         System.out.println();
         System.out.println();
 
-        pretrazivanjePoMailu(listaPolaznika,"3@gmail.com");
+        pretrazivanjePoMailu(listaPolaznika,"10@gmail.com");
 
         System.out.println();
         System.out.println("Broj polaznika : " + listaPolaznika.size());
@@ -43,11 +43,13 @@ public class Main {
     }
 
     public static void pretrazivanjePoMailu(HashMap<String,Polaznik> listaPolaznika , String email){
-        for(Polaznik p : listaPolaznika.values() ){
-            if(Objects.equals(p.getEmail(), email)){
-                System.out.println(p);
-            }
+        if(listaPolaznika.containsKey(email)){
+            System.out.println(listaPolaznika.get(email));
         }
+        else {
+            System.out.println("Korisnik ne postoji");
+        }
+
     }
 
     public static void ispisMape(HashMap<String,Polaznik> listaPolaznika){
