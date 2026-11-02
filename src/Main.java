@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Main {
@@ -24,40 +25,42 @@ public class Main {
         listaPolaznika.put("5@gmail.com", polaznik6);
 
 
-        listaPolaznika.values().stream()
-                .sorted(Comparator.comparingInt(Polaznik::getGodinaUpisa))
-                .forEach(System.out::println);
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-        System.out.println(brojPolaznikaPoGodini(listaPolaznika,2020));
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-        List<Polaznik> lista =
+        Map<Integer, List<Polaznik>> mapa =
                 listaPolaznika.values().stream()
-                        .filter(g -> g.getGodinaUpisa() > 2020)
-                        .toList();
-        lista.forEach(System.out::println);
+                        .collect(Collectors.groupingBy(Polaznik::getGodinaUpisa));
+        System.out.println(mapa);
+
 
         System.out.println();
         System.out.println();
         System.out.println();
 
-        Optional<Polaznik> polaznik =
+        Map<Integer,Long> mapa2 =
                 listaPolaznika.values().stream()
-                        .filter(s -> s.getIme().startsWith("M"))
-                        .findFirst();
-        if(polaznik.isPresent()) {
-            System.out.println(polaznik.get());
+                        .collect(Collectors.groupingBy(g -> g.getGodinaUpisa(), Collectors.counting()));
+        System.out.println(mapa2);
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        Optional<Polaznik> najnoviji =
+                listaPolaznika.values().stream()
+                        .max(Comparator.comparingInt(Polaznik::getGodinaUpisa));
+        if(najnoviji.isPresent()){
+            System.out.println(najnoviji.get());
+        }else{
+            System.out.println("Kolekcija je prazna");
         }
-        else{
-            System.out.println("Polaznik ne postoji!");
-        }
+
+
+
+
+
+
+
+
 
 
 
