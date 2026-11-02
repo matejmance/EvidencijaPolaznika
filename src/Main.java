@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.TreeSet;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -19,27 +19,40 @@ public class Main {
         Polaznik polaznik6 = new Polaznik("Ivan","Kovacic","5@gmail.com",2023);
 
         listaPolaznika.put("1@gmail.com", polaznik1);
-        listaPolaznika.put("1@gmail.com", polaznik2);
+        listaPolaznika.put("6@gmail.com", polaznik2);
         listaPolaznika.put("2@gmail.com", polaznik3);
         listaPolaznika.put("3@gmail.com", polaznik4);
         listaPolaznika.put("4@gmail.com", polaznik5);
         listaPolaznika.put("5@gmail.com", polaznik6);
 
 
+        listaPolaznika.values().stream()
+                .filter(godina -> godina.getGodinaUpisa() == 2021)
+                .forEach(System.out::println);
 
-        ispisMape(listaPolaznika);
-        System.out.println();
-        System.out.println();
+        listaPolaznika.values().stream()
+                .map(Polaznik::getEmail)
+                .forEach(System.out::println);
 
-        pretrazivanjePoMailu(listaPolaznika,"10@gmail.com");
+        listaPolaznika.values().stream()
+                .filter(godina -> godina.getGodinaUpisa() == 2020)
+                .map(Polaznik::getIme)
+                .forEach(System.out::println);
 
-        System.out.println();
-        System.out.println("Broj polaznika : " + listaPolaznika.size());
-        System.out.println();
 
-        listaPolaznika.remove("1@gmail.com");
 
-        System.out.println("Broj polaznika : " + listaPolaznika.size());
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public static void pretrazivanjePoMailu(HashMap<String,Polaznik> listaPolaznika , String email){
