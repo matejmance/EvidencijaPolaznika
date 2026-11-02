@@ -1,4 +1,6 @@
-public class Polaznik {
+import java.util.Objects;
+
+public class Polaznik implements Comparable<Polaznik> {
     private String ime;
     private String prezime;
     private String email;
@@ -46,5 +48,22 @@ public class Polaznik {
     @Override
     public String toString() {
         return "IME: "+ime+"\nPREZIME: "+prezime+"\nEMAIL: "+email+"\nGODINA UPISA: "+godinaUpisa;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Polaznik polaznik = (Polaznik) o;
+        return Objects.equals(getEmail(), polaznik.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getEmail());
+    }
+
+    @Override
+    public int compareTo(Polaznik o) {
+        return this.getEmail().compareTo(o.getEmail());
     }
 }

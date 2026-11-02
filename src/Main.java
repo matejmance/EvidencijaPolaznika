@@ -1,9 +1,11 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Polaznik> listaPolaznika = new ArrayList<>();
+        //ArrayList<Polaznik> listaPolaznika = new ArrayList<>();
+        //HashSet<Polaznik> listaPolaznika = new HashSet<>();
+        TreeSet<Polaznik> listaPolaznika = new TreeSet<>();
 
         Polaznik polaznik1 = new Polaznik("Matej","Mance","1@gmail.com",2020);
         Polaznik polaznik2 = new Polaznik("Robert","Mance","1@gmail.com",2020);
@@ -20,20 +22,24 @@ public class Main {
         listaPolaznika.add(polaznik6);
 
 
-        for (int i = 0; i < listaPolaznika.size(); i++) {
-            System.out.println(listaPolaznika.get(i)+"\n");
-        }
+        System.out.println(listaPolaznika);
+        System.out.println();
+        System.out.println();
 
         pretrazivanjePoGodiniUpisa(listaPolaznika,2021);
 
+        System.out.println();
         System.out.println("Broj polaznika : " + listaPolaznika.size());
+        System.out.println();
     }
 
-    public static void pretrazivanjePoGodiniUpisa(ArrayList<Polaznik> listaPolaznika , int godinaUpisa){
-        for(int i = 0 ; i < listaPolaznika.size() ; i++){
-            if(godinaUpisa == listaPolaznika.get(i).getGodinaUpisa()){
-            System.out.println(listaPolaznika.get(i)+"\n");
+    public static void pretrazivanjePoGodiniUpisa(TreeSet<Polaznik> listaPolaznika , int godinaUpisa){
+        for(Polaznik p :  listaPolaznika ){
+            if(p.getGodinaUpisa() == godinaUpisa){
+                System.out.println(p);
             }
         }
     }
+
+
 }
