@@ -25,14 +25,14 @@ public class Main {
 
 
         listaPolaznika.values().stream()
-                .sorted(Comparator.comparingInt(Polaznik::getGodinaUpisa).reversed())
+                .sorted(Comparator.comparingInt(Polaznik::getGodinaUpisa))
                 .forEach(System.out::println);
 
         System.out.println();
         System.out.println();
         System.out.println();
 
-        brojPolaznikaPoGodini(listaPolaznika,2020);
+        System.out.println(brojPolaznikaPoGodini(listaPolaznika,2020));
 
         System.out.println();
         System.out.println();
@@ -104,12 +104,12 @@ public class Main {
         }
     }
 
-    public static void brojPolaznikaPoGodini(HashMap<String,Polaznik> listaPolaznika,int godinaUpisa){
+    public static long brojPolaznikaPoGodini(HashMap<String,Polaznik> listaPolaznika,int godinaUpisa){
         long brojUpisanih =
                 listaPolaznika.values().stream()
                         .filter(g -> g.getGodinaUpisa() == godinaUpisa)
                         .count();
-        System.out.println("Broj upisanih "+godinaUpisa+" godine: " + brojUpisanih);
+        return brojUpisanih;
 
     }
 
