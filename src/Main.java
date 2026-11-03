@@ -34,9 +34,17 @@ public class Main {
         Path path = datoteka.toPath();
         System.out.println(path);
 
-        System.out.println(citanjeDatoteke(path));
+        File datoteka2 = new File("data/polaznici_export.csv");
+        Path path2 = datoteka2.toPath();
+
+        //System.out.println(citanjeDatoteke(path));
+        listaPolaznika2 = citanjeDatoteke(path);
+        System.out.println(listaPolaznika2);
         int velicina = citanjeDatoteke(path).size();
         System.out.println(velicina);
+
+
+        spremanjeDatoteke(listaPolaznika2, path2);
 
 
 
@@ -97,6 +105,22 @@ public class Main {
         }
 
         return listaPolaznika2;
+
+    }
+
+    public static void spremanjeDatoteke(ArrayList<Polaznik> listaPolaznika2 , Path path2) {
+        try(BufferedWriter br = Files.newBufferedWriter(path2)){
+            for(Polaznik p : listaPolaznika2){
+                br.write(p.getIme()+","+p.getPrezime()+","+p.getEmail()+","+p.getGodinaUpisa());
+                br.newLine();
+            }
+
+
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
+
 
     }
 
