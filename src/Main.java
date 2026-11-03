@@ -36,16 +36,15 @@ public class Main {
 
         //ZADATAK B :
 
-        citanjeDatoteke(path2);
+        listaPolaznika3 = citanjeDatoteke(path2);
+
+        System.out.println(pronadiPolaznika(listaPolaznika3,"7@gmail.com"));
+
+        System.out.println(dodajPolaznika(listaPolaznika3,polaznikNovi));
 
 
-
-
-
-        dodajPolaznika(listaPolaznika3,polaznikNovi);
-        System.out.println(listaPolaznika3);
         System.out.println(listaPolaznika3.size());
-        System.out.println(pronadiPolaznika(listaPolaznika3,"99@gmail.com"));
+
 
 
     }
