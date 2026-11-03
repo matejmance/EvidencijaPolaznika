@@ -40,11 +40,17 @@ public class Main {
         //System.out.println(citanjeDatoteke(path));
         listaPolaznika2 = citanjeDatoteke(path);
         System.out.println(listaPolaznika2);
-        int velicina = citanjeDatoteke(path).size();
-        System.out.println(velicina);
+
+        System.out.println(listaPolaznika2.size());
 
 
         spremanjeDatoteke(listaPolaznika2, path2);
+
+        System.out.println("Citanje iz nove datoteke: ");
+        System.out.println();
+        System.out.println();
+        System.out.println(citanjeDatoteke(path2));
+        System.out.println(citanjeDatoteke(path2).size());
 
 
 
@@ -108,7 +114,7 @@ public class Main {
 
     }
 
-    public static void spremanjeDatoteke(ArrayList<Polaznik> listaPolaznika2 , Path path2) {
+    public static void spremanjeDatoteke(List<Polaznik> listaPolaznika2 , Path path2) {
         try(BufferedWriter br = Files.newBufferedWriter(path2)){
             for(Polaznik p : listaPolaznika2){
                 br.write(p.getIme()+","+p.getPrezime()+","+p.getEmail()+","+p.getGodinaUpisa());
