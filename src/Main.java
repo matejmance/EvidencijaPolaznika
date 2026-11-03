@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Polaznik> listaPolaznika2;
+        ArrayList<Polaznik> listaPolaznika3 = new ArrayList<>();
 
 
         File datoteka = new File("data/polaznici.csv");
@@ -19,7 +20,7 @@ public class Main {
         File datoteka2 = new File("data/polaznici_export.csv");
         Path path2 = datoteka2.toPath();
 
-
+        //SPREMANJE LISTE DA NE OSTANE PRAZNA :
         listaPolaznika2 = citanjeDatoteke(path);
 
 
@@ -37,11 +38,14 @@ public class Main {
 
         citanjeDatoteke(path2);
 
-        System.out.println(listaPolaznika2);
 
 
-        System.out.println(pronadiPolaznika(listaPolaznika2,"1@gmail.com"));
 
+
+        dodajPolaznika(listaPolaznika3,polaznikNovi);
+        System.out.println(listaPolaznika3);
+        System.out.println(listaPolaznika3.size());
+        System.out.println(pronadiPolaznika(listaPolaznika3,"99@gmail.com"));
 
 
     }
@@ -85,22 +89,13 @@ public class Main {
 
     public static boolean dodajPolaznika(List<Polaznik> listaPolaznika2 , Polaznik polaznik) {
         String email = polaznik.getEmail();
-        boolean result = false ;
         for(Polaznik p : listaPolaznika2){
             if(p.getEmail().equals(email)){
-                result = false;
-            }
-            else{
-                result = true;
+                return false;
             }
         }
-        if(result){
-            listaPolaznika2.add(polaznik);
-        }
-        else {
-            System.out.println("Polaznik s istom email adresom vec postoji!");
-        }
-        return result;
+        listaPolaznika2.add(polaznik);
+        return true;
     }
 
     public static Optional<Polaznik> pronadiPolaznika(List<Polaznik> listaPolaznika2 , String trazeniEmail) {
@@ -109,6 +104,7 @@ public class Main {
 
             if(p.getEmail().equals(trazeniEmail)){
                 polaznik = Optional.of(p);
+                return polaznik;
             }
 
         }
