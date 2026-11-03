@@ -20,57 +20,53 @@ public class Main {
         File datoteka2 = new File("data/polaznici_export.csv");
         Path path2 = datoteka2.toPath();
 
-        //SPREMANJE LISTE DA NE OSTANE PRAZNA :
-        listaPolaznika2 = citanjeDatoteke(path);
+        File datoteka3 = new File("data/polaznici_test.csv");
+        Path path3 = datoteka3.toPath();
 
-
-        Polaznik polaznikNovi = new Polaznik("Antonio","Stjepanovic","7@gmail.com",2024);
-
-        dodajPolaznika(listaPolaznika2,polaznikNovi);
-
-        spremanjeDatoteke(listaPolaznika2,path2);
-
-        System.out.println(listaPolaznika2.size());
-
-
-
-        //ZADATAK B :
-
-        listaPolaznika3 = citanjeDatoteke(path2);
-
-        System.out.println(pronadiPolaznika(listaPolaznika3,"7@gmail.com"));
-
-        System.out.println(dodajPolaznika(listaPolaznika3,polaznikNovi));
-
-
-        System.out.println(listaPolaznika3.size());
-
+        System.out.println(citanjeDatoteke(path3));
 
 
     }
     public static ArrayList<Polaznik> citanjeDatoteke(Path path) {
-        ArrayList<Polaznik> listaPolaznika2;
+        ArrayList<Polaznik> listaPolaznika2 = new ArrayList<>();
 
         try (BufferedReader br = Files.newBufferedReader(path)) {
 
             listaPolaznika2 = new ArrayList<>();
             String linija = "";
+            int brojac = 0;
 
             while ((linija = br.readLine()) != null) {
+                brojac++;
+                if (linija.isBlank()){
+                    System.out.println("Linija "+brojac+" je prazna");
+                    br.readLine();
+                }
                 String[] array = linija.split(",");
+                if(array.length != 4){
+                    System.out.println("Linija "+brojac+" je nepotpuna");
+                    br.readLine();
+                }
                 String ime = array[0];
                 String prezime = array[1];
                 String email = array[2];
+                try {
+                    int godina = Integer.parseInt(array[3]);
+                    br.readLine();
+                } catch (NumberFormatException e) {
+                    System.out.println("Godina ne postoji");
+                }
                 int godina = Integer.parseInt(array[3]);
+
 
                 Polaznik polaznik = new Polaznik(ime, prezime, email, godina);
                 listaPolaznika2.add(polaznik);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        }
+        catch (IOException e) {
+
         }
         return listaPolaznika2;
-
     }
 
     public static void spremanjeDatoteke(List<Polaznik> listaPolaznika2 , Path path2) {
