@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Polaznik> listaPolaznika2;
+        ArrayList<Polaznik> listaPolaznika2 = new ArrayList<>();
         ArrayList<Polaznik> listaPolaznika3 = new ArrayList<>();
 
 
@@ -23,7 +23,10 @@ public class Main {
         File datoteka3 = new File("data/polaznici_test.csv");
         Path path3 = datoteka3.toPath();
 
-        System.out.println(citanjeDatoteke(path3));
+
+
+        listaPolaznika2 = citanjeDatoteke(path3);
+        System.out.println("Broj uspjesno ucitanih polaznika : "+ listaPolaznika2.size());
 
 
     }
@@ -39,32 +42,34 @@ public class Main {
             while ((linija = br.readLine()) != null) {
                 brojac++;
                 if (linija.isBlank()){
-                    System.out.println("Linija "+brojac+" je prazna");
-                    br.readLine();
+                    System.out.println("Linija "+brojac+": Prazan redak");
+                    continue;
                 }
                 String[] array = linija.split(",");
                 if(array.length != 4){
-                    System.out.println("Linija "+brojac+" je nepotpuna");
-                    br.readLine();
+                    System.out.println("Linija "+brojac+": Nepotpun CSV redak");
+                    continue;
                 }
-                String ime = array[0];
-                String prezime = array[1];
-                String email = array[2];
+
                 try {
+                    String ime = array[0];
+                    String prezime = array[1];
+                    String email = array[2];
                     int godina = Integer.parseInt(array[3]);
-                    br.readLine();
+                    Polaznik polaznik = new Polaznik(ime, prezime, email, godina);
+                    listaPolaznika2.add(polaznik);
                 } catch (NumberFormatException e) {
-                    System.out.println("Godina ne postoji");
+                    System.out.println("Linija "+brojac+": Neispravna godina upisa");
+
                 }
-                int godina = Integer.parseInt(array[3]);
 
 
-                Polaznik polaznik = new Polaznik(ime, prezime, email, godina);
-                listaPolaznika2.add(polaznik);
+
+
             }
         }
         catch (IOException e) {
-
+            System.out.println("Error: "+e.getMessage());
         }
         return listaPolaznika2;
     }
